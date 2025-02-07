@@ -1,9 +1,10 @@
 import { useState } from "react";
 import User from './User'
+import Graph from './Graph'
 
 function AddUser() {
   const [message, setMessage] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<string[]>([]);
 
   const handleAdd = () => {
     if (message.trim()) {
@@ -41,6 +42,7 @@ function AddUser() {
           <User key={index} userName={user} handleDelete={handleDelete} />
         ))}
       </div>
+      <Graph users={users}></Graph>
     </div>
   );
 }

@@ -25,9 +25,10 @@ const User: React.FC<UserProps> = ({ userName, handleDelete }) => {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
             />
+            <div className="card-body d-flex"></div>
             <div className="d-flex gap-2">
                 <button className="btn btn-primary" onClick={handleAdd}>
-                    Add
+                    Divide Equally
                 </button>
                 <button
                     className="btn btn-danger"  // Changed color to indicate deletion
@@ -35,7 +36,6 @@ const User: React.FC<UserProps> = ({ userName, handleDelete }) => {
                 >
                     Delete User
                 </button>
-
             </div>
         </div>
     );

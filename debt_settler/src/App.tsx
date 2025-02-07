@@ -1,5 +1,6 @@
 import './App.css'
 import User from './components/AddUser'
+import Settle from './components/Settle'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -11,7 +12,7 @@ function App() {
           Debt Settler
         </h1>
         <User></User>
-
+        <Settle></Settle>
       </div>
     </div>
   )
