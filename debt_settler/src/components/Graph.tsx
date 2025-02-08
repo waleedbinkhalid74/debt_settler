@@ -45,7 +45,6 @@ const Graph: React.FC<GraphProps> = ({ users, transactions }) => {
 
     return (
         <div>
-            <h3 className="text-center text-white">Graph</h3>
             <div className="border border-info" ref={containerRef} style={{ height: 400 }} />
         </div>
     );

@@ -1,19 +1,14 @@
 import { useState } from "react";
 import User from './User'
-import Graph from './Graph'
 
-function AddUser() {
+interface AddUserProps {
+  users: string[];  // Pass users array from the parent
+  setUsers: (userName: string[]) => void;  // Pass setUsers function from the parent
+  addTransaction: (userName: string, amount: number, otherUsers: string[]) => void;  // New prop to handle transaction updates
+}
+
+function AddUser({ users, setUsers, addTransaction }: AddUserProps) {
   const [message, setMessage] = useState("");
-  const [users, setUsers] = useState<string[]>([]);
-  const [transactions, setTransactions] = useState<[string, number, string[]][]>([]);
-
-  // Function to handle transaction updates from a User component
-  const addTransaction = (userName: string, amount: number, otherUsers: string[]) => {
-    setTransactions((prevTransactions) => [
-      ...prevTransactions,
-      [userName, amount, otherUsers],
-    ]);
-  }
 
   const handleAdd = () => {
     if (message.trim()) {
@@ -61,7 +56,6 @@ function AddUser() {
             addTransaction={addTransaction} />
         ))}
       </div>
-      <Graph users={users} transactions={transactions}></Graph>
     </div>
   );
 }

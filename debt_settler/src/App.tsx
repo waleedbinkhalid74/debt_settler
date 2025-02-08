@@ -1,9 +1,20 @@
+import { useState } from "react";
 import './App.css'
-import User from './components/AddUser'
+import AddUser from './components/AddUser'
 import Settle from './components/Settle'
+import Graph from './components/Graph'
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [transactions, setTransactions] = useState<[string, number, string[]][]>([]);
+  const [users, setUsers] = useState<string[]>([]);
+
+  // Function to handle transaction updates from a User component
+  const addTransaction = (userName: string, amount: number, otherUsers: string[]) => {
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      [userName, amount, otherUsers],
+    ]);
+  }
 
   return (
     <div className="bg-dark min-vh-100 flex-column justify-content-center align-items-center text-white py-5">
@@ -11,10 +22,16 @@ function App() {
         <h1 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
           Debt Settler
         </h1>
-        <User></User>
+        <AddUser users={users} setUsers={setUsers} addTransaction={addTransaction}></AddUser>
+        <div className="py-3"></div>
+        <h3 className="text-center text-white">Original Transactions</h3>
+        <div className="py-3"></div>
+        <Graph users={users} transactions={transactions}></Graph>
         <Settle></Settle>
+        <h3 className="text-center text-white">Simplified Transactions</h3>
+        <Graph users={users} transactions={transactions}></Graph>
       </div>
-    </div>
+    </div >
   )
 }
 
