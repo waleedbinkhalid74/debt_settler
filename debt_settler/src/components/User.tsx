@@ -5,14 +5,14 @@ interface UserProps {
     userName: string;
     handleDelete: (userName: string) => void;  // Pass handleDelete from the parent
     users: string[];  // Pass users array from the parent
+    addTransaction: (userName: string, amount: number, otherUsers: string[]) => void;  // New prop to handle transaction updates
 }
 
-const User: React.FC<UserProps> = ({ userName, handleDelete, users }) => {
+const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransaction }) => {
     const [amount, setAmount] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
 
     const handleDivideEqually = () => {
-        console.log(amount);
         let numericAmount = parseFloat(amount);
         if (isNaN(numericAmount) || numericAmount <= 0) {
             // incorrect amount
@@ -20,7 +20,7 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users }) => {
             return;
         }
         let otherUsers = users.filter(user => user !== userName);
-        console.log("Transfer " + numericAmount + " from " + userName + " to " + otherUsers);
+        addTransaction(userName, numericAmount, otherUsers);  // Pass the transaction up to the parent        setTransaction([...transactions, [userName, numericAmount, otherUsers]]);
         setAmount("Paid Amount"); // Clear amount after successful transfer
         setError(null); // Clear error when successful
     };

@@ -5,6 +5,15 @@ import Graph from './Graph'
 function AddUser() {
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState<string[]>([]);
+  const [transactions, setTransactions] = useState<[string, number, string[]][]>([]);
+
+  // Function to handle transaction updates from a User component
+  const addTransaction = (userName: string, amount: number, otherUsers: string[]) => {
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      [userName, amount, otherUsers],
+    ]);
+  }
 
   const handleAdd = () => {
     if (message.trim()) {
@@ -44,10 +53,15 @@ function AddUser() {
 
       <div className="mt-4 d-flex flex-wrap gap-3">
         {users.map((user, index) => (
-          <User key={index} userName={user} handleDelete={handleDelete} users={users} />
+          <User
+            key={index}
+            userName={user}
+            handleDelete={handleDelete}
+            users={users}
+            addTransaction={addTransaction} />
         ))}
       </div>
-      <Graph users={users}></Graph>
+      <Graph users={users} transactions={transactions}></Graph>
     </div>
   );
 }
