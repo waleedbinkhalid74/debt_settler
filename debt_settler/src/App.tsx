@@ -3,9 +3,10 @@ import './App.css'
 import AddUser from './components/AddUser'
 import Settle from './components/Settle'
 import Graph from './components/Graph'
+import Transaction from './Types'
 
 function App() {
-  const [transactions, setTransactions] = useState<[string, number, string[]][]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [users, setUsers] = useState<string[]>([]);
 
   // Function to handle transaction updates from a User component
@@ -27,7 +28,7 @@ function App() {
         <h3 className="text-center text-white">Original Transactions</h3>
         <div className="py-3"></div>
         <Graph users={users} transactions={transactions}></Graph>
-        <Settle></Settle>
+        <Settle transactions={transactions}></Settle>
         <h3 className="text-center text-white">Simplified Transactions</h3>
         <Graph users={users} transactions={transactions}></Graph>
       </div>

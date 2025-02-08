@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Network } from "vis-network/standalone";
+import Transaction from "../Types";
 
 interface GraphProps {
     users: string[]; // Users is an array of strings
-    transactions: [string, number, string[]][];  // Transactions is an array of tuples
+    transactions: Transaction[];  // Transactions is an array of tuples
 }
 
 const Graph: React.FC<GraphProps> = ({ users, transactions }) => {
@@ -36,7 +37,6 @@ const Graph: React.FC<GraphProps> = ({ users, transactions }) => {
                 };
             });
         });
-        console.log(edges);
 
         const network = new Network(containerRef.current, { nodes, edges }, {});
 
