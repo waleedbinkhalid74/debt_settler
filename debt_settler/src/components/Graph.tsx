@@ -32,8 +32,8 @@ const Graph: React.FC<GraphProps> = ({ users, transactions }) => {
                 return {
                     from,
                     to,
-                    label: amount.toString(),
-                    arrows: { middle: true },
+                    label: amount.toFixed(2).toString(),
+                    arrows: { from: true },
                 };
             });
         });

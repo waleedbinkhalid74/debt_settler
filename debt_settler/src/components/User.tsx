@@ -20,7 +20,7 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             return;
         }
         let otherUsers = users.filter(user => user !== userName);
-        addTransaction(userName, numericAmount, otherUsers);  // Pass the transaction up to the parent        setTransaction([...transactions, [userName, numericAmount, otherUsers]]);
+        addTransaction(userName, numericAmount / otherUsers.length, otherUsers);  // Pass the transaction up to the parent 
         setAmount("Paid Amount"); // Clear amount after successful transfer
         setError(null); // Clear error when successful
     };

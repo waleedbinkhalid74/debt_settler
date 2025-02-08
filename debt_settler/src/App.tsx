@@ -28,7 +28,7 @@ function App() {
         <h3 className="text-center text-white">Original Transactions</h3>
         <div className="py-3"></div>
         <Graph users={users} transactions={transactions}></Graph>
-        <Settle transactions={transactions}></Settle>
+        <Settle transactions={transactions} users={users}></Settle>
         <h3 className="text-center text-white">Simplified Transactions</h3>
         <Graph users={users} transactions={transactions}></Graph>
       </div>
