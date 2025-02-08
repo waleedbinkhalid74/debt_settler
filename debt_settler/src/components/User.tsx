@@ -4,12 +4,26 @@ import React, { useState } from "react";
 interface UserProps {
     userName: string;
     handleDelete: (userName: string) => void;  // Pass handleDelete from the parent
+    users: string[];  // Pass users array from the parent
 }
 
-const User: React.FC<UserProps> = ({ userName, handleDelete }) => {
-    const [amount, setAmount] = useState("");
+const User: React.FC<UserProps> = ({ userName, handleDelete, users }) => {
+    const [amount, setAmount] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
 
-    const handleAdd = () => { };
+    const handleDivideEqually = () => {
+        console.log(amount);
+        let numericAmount = parseFloat(amount);
+        if (isNaN(numericAmount) || numericAmount <= 0) {
+            // incorrect amount
+            setError("Amount must be greater than zero you silly goose!");
+            return;
+        }
+        let otherUsers = users.filter(user => user !== userName);
+        console.log("Transfer " + numericAmount + " from " + userName + " to " + otherUsers);
+        setAmount("Paid Amount"); // Clear amount after successful transfer
+        setError(null); // Clear error when successful
+    };
 
 
     return (
@@ -19,15 +33,16 @@ const User: React.FC<UserProps> = ({ userName, handleDelete }) => {
             </div>
             <div className="card-body d-flex"></div>
             <input
-                type="text"
+                type="number"
                 className="form-control bg-secondary text-white border-0"
                 placeholder="Paid Amount"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
             />
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <div className="card-body d-flex"></div>
             <div className="d-flex gap-2">
-                <button className="btn btn-primary" onClick={handleAdd}>
+                <button className="btn btn-primary" onClick={handleDivideEqually}>
                     Divide Equally
                 </button>
                 <button

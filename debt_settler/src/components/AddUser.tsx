@@ -8,6 +8,11 @@ function AddUser() {
 
   const handleAdd = () => {
     if (message.trim()) {
+      let userExists = users.find(user => user === message);
+      if (userExists) {
+        alert("User already exists!");
+        return;
+      }
       setUsers([...users, message]);  // Add new user to the array
       setMessage("");  // Clear the input field
     }
@@ -39,7 +44,7 @@ function AddUser() {
 
       <div className="mt-4 d-flex flex-wrap gap-3">
         {users.map((user, index) => (
-          <User key={index} userName={user} handleDelete={handleDelete} />
+          <User key={index} userName={user} handleDelete={handleDelete} users={users} />
         ))}
       </div>
       <Graph users={users}></Graph>
