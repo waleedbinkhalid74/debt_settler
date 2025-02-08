@@ -16,7 +16,7 @@ const calculateFlow = (transactions: Transaction[], users: string[]): Record<str
     return userFlowMap;
 };
 
-export const runOptimization = (transactions: Transaction[], users: string[]): void => {
+export const runOptimization = (transactions: Transaction[], users: string[]): Transaction[] => {
     console.log("users ", users);
     // We have a complex graph with redundant transactions
     // A transaction is models as fromUser -- amount --> toUsers
@@ -60,4 +60,5 @@ export const runOptimization = (transactions: Transaction[], users: string[]): v
         givingUsers = givingUsers.filter(user => user.value !== 0);
     }
     console.log("simplifiedTransactions ", simplifiedTransactions);
+    return simplifiedTransactions;
 };

@@ -5,18 +5,27 @@ import Transaction from "../Types";
 interface GraphProps {
     users: string[]; // Users is an array of strings
     transactions: Transaction[];  // Transactions is an array of tuples
+    immediateRender: boolean;  // Boolean to determine if the graph should be rendered immediately
 }
 
-const Graph: React.FC<GraphProps> = ({ users, transactions }) => {
+interface Node {
+    id: number;
+    label: string;
+}
+
+const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!containerRef.current) return;
 
-        const nodes = users.map((user, index) => ({
-            id: index + 1,
-            label: user, // Node label is set to the user's name
-        }));
+        let nodes: Node[] = [];
+        if (immediateRender || transactions.length > 0) {
+            nodes = users.map((user, index) => ({
+                id: index + 1,
+                label: user, // Node label is set to the user's name
+            }));
+        }
 
         const userIndexMap = users.reduce((acc, user, index) => {
             acc[user] = index + 1; // Store 1-based index
