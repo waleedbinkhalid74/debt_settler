@@ -1,5 +1,25 @@
 import Transaction from "../Types";
 
+function assertRecordsAreEqual(record1: Record<string, number>, record2: Record<string, number>): void {
+    const keys1 = Object.keys(record1);
+    const keys2 = Object.keys(record2);
+
+    // Check if both records have the same number of keys
+    if (keys1.length !== keys2.length) {
+        throw new Error("Records have different numbers of keys");
+    }
+
+    // Check if every key in record1 exists in record2 with the same value
+    for (const key of keys1) {
+        if (!(key in record2)) {
+            throw new Error(`Key "${key}" is missing in the second record`);
+        }
+        if (record1[key] !== record2[key]) {
+            throw new Error(`Value for key "${key}" does not match: ${record1[key]} !== ${record2[key]}`);
+        }
+    }
+}
+
 const calculateFlow = (transactions: Transaction[], users: string[]): Record<string, number> => {
     let userFlowMap: Record<string, number> = users.reduce((acc, user) => {
         acc[user] = 0; // Initialize each user with value 0
@@ -53,12 +73,13 @@ export const runOptimization = (transactions: Transaction[], users: string[]): T
         let receivingUser = receivingUsers[0];
         let givingUser = givingUsers[0];
         let amount = Math.min(-givingUser.value, receivingUser.value);
-        simplifiedTransactions.push([givingUser.key, amount, [receivingUser.key]]);
+        simplifiedTransactions.push([receivingUser.key, amount, [givingUser.key]]);
         givingUser.value += amount;
         receivingUser.value -= amount;
         receivingUsers = receivingUsers.filter(user => user.value !== 0);
         givingUsers = givingUsers.filter(user => user.value !== 0);
     }
-    console.log("simplifiedTransactions ", simplifiedTransactions);
+    let simplifiedUserFlowMap = calculateFlow(simplifiedTransactions, users);
+    assertRecordsAreEqual(simplifiedUserFlowMap, userFlowMap);
     return simplifiedTransactions;
 };
