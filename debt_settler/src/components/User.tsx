@@ -50,21 +50,21 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
 
 
     return (
-        <div className="bg-card container card w-25 p-4 mt-2 shadow text-white">
-            <div className="card-header bg-secondary border-0">
-                <h5 className="card-title text-white text-center">{userName}</h5>
+        <div className="bg-card container card w-25 p-4 mt-2 text-white">
+            <div className="bg-cardHeader card-header">
+                <h5 className="card-title text-black text-center">{userName}</h5>
             </div>
             <div className="card-body d-flex"></div>
             <input
                 type="number"
-                className="form-control bg-secondary text-white border-0"
+                className="form-control text-black border-0"
                 placeholder="Paid Amount"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
             />
             {error && <p style={{ color: "red" }}>{error}</p>}
             <div className="card-body d-flex"></div>
-            <label className="btn btn-primary w-30">
+            <label className="btn bg-button w-30">
                 <input
                     type="checkbox"
                     className="btn-check"
@@ -77,7 +77,7 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             {users.map((item) => (
                 <div key={item} className="container">
                     <div className="row">
-                        <div className="col-sm">
+                        <div className="col-sm text-black">
                             <input
                                 type="checkbox"
                                 checked={involvedUsers.includes(item)}
@@ -89,7 +89,7 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
                         <div className="col-sm">
                             <input
                                 type="number"
-                                className="text-white border-2 rounded"
+                                className="text-black border-2 rounded"
                                 placeholder="Amount"
                             />
                         </div>
@@ -98,11 +98,11 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             ))}
             <div className="card-body d-flex"></div>
             <div className="d-flex gap-2">
-                <button className="btn btn-primary" onClick={handleDivideEqually}>
+                <button className="btn bg-button" onClick={handleDivideEqually}>
                     Divide Equally
                 </button>
                 <button
-                    className="btn btn-danger"  // Changed color to indicate deletion
+                    className="btn bg-buttonDanger"  // Changed color to indicate deletion
                     onClick={() => handleDelete(userName)}  // Call the passed delete function
                 >
                     Delete User

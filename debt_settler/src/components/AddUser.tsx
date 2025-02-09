@@ -28,19 +28,19 @@ function AddUser({ users, setUsers, addTransaction }: AddUserProps) {
 
   return (
     <div>
-      <div className="container card w-25 p-3 shadow text-white bg-card">
-        <div className="card-header bg-secondary border-0">
-          <h5 className="card-title text-white text-center">Add User</h5>
+      <div className="container card w-25 p-3 text-white bg-card">
+        <div className="card-header bg-cardHeader">
+          <h5 className="card-title text-black text-center">Add User</h5>
         </div>
         <div className="card-body d-flex gap-2">
           <input
             type="text"
-            className="form-control bg-secondary text-white border-0 w-75"
+            className="form-control bg-inputFields text-black border-0 w-75"
             placeholder="User Name"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <button className="btn btn-primary w-auto" onClick={handleAdd}>
+          <button className="btn bg-button w-25" onClick={handleAdd}>
             Add
           </button>
         </div>

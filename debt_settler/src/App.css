@@ -5,4 +5,30 @@
 .bg-card {
     background-color: #FCF4E7 !important;
     border: 3px solid #000000 !important;
+    box-shadow: 5px 5px 0px #000000 !important;
+    display: block;
+}
+
+.bg-cardHeader {
+    background-color: #FCF4E7 !important;
+    border: 3px solid #000000 !important;
+    font-style: public-sans;
+}
+
+.bg-inputFields {
+    background-color: #FFF !important;
+}
+
+.bg-button {
+    background-color: #FCF4E7 !important;
+    border: 3px solid #000000 !important;
+    font-style: public-sans;
+    box-shadow: 5px 5px 0px #000000 !important;
+}
+
+.bg-buttonDanger {
+    background-color: #FF9780 !important;
+    border: 3px solid #000000 !important;
+    font-style: public-sans;
+    box-shadow: 5px 5px 0px #000000 !important;
 }
