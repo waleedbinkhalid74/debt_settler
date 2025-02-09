@@ -50,7 +50,7 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
 
 
     return (
-        <div className="container card w-25 p-4 mt-2 shadow bg-dark text-white border border-light">
+        <div className="bg-card container card w-25 p-4 mt-2 shadow text-white">
             <div className="card-header bg-secondary border-0">
                 <h5 className="card-title text-white text-center">{userName}</h5>
             </div>

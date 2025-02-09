@@ -14,7 +14,7 @@ function Settle({ transactions, users, onSettle }: SettleProps) {
     };
 
     return (
-        <div className="bg-dark d-flex flex-column justify-content-center align-items-center text-white py-5">
+        <div className="d-flex flex-column justify-content-center align-items-center text-white py-5">
             <button
                 className="btn btn-primary mb-3"
                 onClick={handleSettle}

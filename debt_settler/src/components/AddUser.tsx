@@ -28,7 +28,7 @@ function AddUser({ users, setUsers, addTransaction }: AddUserProps) {
 
   return (
     <div>
-      <div className="container card w-25 p-3 shadow bg-dark text-white border border-light">
+      <div className="container card w-25 p-3 shadow text-white bg-card">
         <div className="card-header bg-secondary border-0">
           <h5 className="card-title text-white text-center">Add User</h5>
         </div>
