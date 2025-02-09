@@ -20,31 +20,37 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
         if (!containerRef.current) return;
 
         let nodes: Node[] = [];
+        let invovledUsers: string[] = [];
         if (immediateRender || transactions.length > 0) {
-            nodes = users.map((user, index) => ({
+            // if the trasactions are not empty then the users should only be the ones that are in the transactions
+            if (transactions.length > 0) {
+                invovledUsers = Array.from(new Set(transactions.flatMap(([fromUser, _, toUser]) => [fromUser, toUser])));
+            }
+            else {
+                // shallow copy the users array
+                invovledUsers = [...users];
+            }
+            console.log("invovledUsers ", invovledUsers);
+            nodes = invovledUsers.map((user, index) => ({
                 id: index + 1,
                 label: user, // Node label is set to the user's name
             }));
         }
 
-        const userIndexMap = users.reduce((acc, user, index) => {
+        const userIndexMap = invovledUsers.reduce((acc, user, index) => {
             acc[user] = index + 1; // Store 1-based index
             return acc;
         }, {} as Record<string, number>);
 
-        const edges = transactions.flatMap(([fromUser, amount, toUsers]) => {
+        const edges = transactions.flatMap(([fromUser, amount, toUser]) => {
             const from = userIndexMap[fromUser];
-
-            // Create an edge for each toUser
-            return toUsers.map((toUser) => {
-                const to = userIndexMap[toUser];
-                return {
-                    from,
-                    to,
-                    label: amount.toFixed(2).toString(),
-                    arrows: { from: true },
-                };
-            });
+            const to = userIndexMap[toUser];
+            return {
+                from,
+                to,
+                label: amount.toFixed(2).toString(),
+                arrows: { from: true },
+            };
         });
 
         const network = new Network(containerRef.current, { nodes, edges }, {});

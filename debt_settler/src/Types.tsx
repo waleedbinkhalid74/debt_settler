@@ -1,3 +1,3 @@
-type Transaction = [string, number, string[]];
+type Transaction = [string, number, string];
 
 export default Transaction;

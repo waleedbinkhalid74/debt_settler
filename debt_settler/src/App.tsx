@@ -12,11 +12,13 @@ function App() {
 
   // Function to handle transaction updates from a User component
   const addTransaction = (userName: string, amount: number, otherUsers: string[]) => {
-    setTransactions((prevTransactions) => [
-      ...prevTransactions,
-      [userName, amount, otherUsers],
-    ]);
-  }
+    for (let user of otherUsers) {
+      setTransactions((prevTransactions) => [
+        ...prevTransactions,
+        [userName, amount, user],
+      ]);
+    }
+  };
   const handleSettle = (newTransactions: Transaction[]) => {
     setSimplifiedTransactions(newTransactions); // Update the state with the optimized transactions
   };
