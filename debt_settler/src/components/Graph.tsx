@@ -30,7 +30,6 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
                 // shallow copy the users array
                 invovledUsers = [...users];
             }
-            console.log("invovledUsers ", invovledUsers);
             nodes = invovledUsers.map((user, index) => ({
                 id: index + 1,
                 label: user, // Node label is set to the user's name

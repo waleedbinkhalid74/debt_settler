@@ -2,9 +2,6 @@ import Transaction from "../Types";
 
 function assertRecordsAreEqual(record1: Record<string, number>, record2: Record<string, number>): void {
     const keys1 = Object.keys(record1);
-    const keys2 = Object.keys(record2);
-    console.log("keys1 ", record1);
-    console.log("keys2 ", record2);
 
     // Check if every key in record1 exists in record2 with the same value
     for (const key of keys1) {
@@ -32,14 +29,12 @@ const calculateFlow = (transactions: Transaction[], users: string[]): Record<str
 };
 
 export const runOptimization = (transactions: Transaction[], users: string[]): Transaction[] => {
-    console.log("users ", users);
     // We have a complex graph with redundant transactions
     // A transaction is models as fromUser -- amount --> toUsers
     // meaning the fromUser should get money back from toUsers
 
     // Step 1: Calculate the total flow of each node
     let userFlowMap = calculateFlow(transactions, users);
-    console.log("userFlowMap ", userFlowMap);
 
     // Step 2: Remove nodes with zero flow
     userFlowMap = Object.keys(userFlowMap).reduce((acc, key) => {
