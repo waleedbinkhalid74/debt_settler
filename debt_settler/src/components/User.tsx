@@ -64,7 +64,7 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             />
             {error && <p style={{ color: "red" }}>{error}</p>}
             <div className="card-body d-flex"></div>
-            <label className="btn btn-primary w-25">
+            <label className="btn btn-primary w-30">
                 <input
                     type="checkbox"
                     className="btn-check"
@@ -73,17 +73,30 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
                 />
                 Select All
             </label>
+            <div className="card-body d-flex"></div>
             {users.map((item) => (
-                <label key={item} className="flex items-center mb-1">
-                    <input
-                        type="checkbox"
-                        checked={involvedUsers.includes(item)}
-                        onChange={() => handleCheckboxChange(item)}
-                        className="mr-2"
-                    />
-                    {item}
-                </label>
+                <div key={item} className="container">
+                    <div className="row">
+                        <div className="col-sm">
+                            <input
+                                type="checkbox"
+                                checked={involvedUsers.includes(item)}
+                                onChange={() => handleCheckboxChange(item)}
+                                className="w-5 h-5"
+                            />
+                            <span className="w-32 gap-x-4">{item}</span>
+                        </div>
+                        <div className="col-sm">
+                            <input
+                                type="number"
+                                className="text-white border-2 rounded"
+                                placeholder="Amount"
+                            />
+                        </div>
+                    </div>
+                </div>
             ))}
+            <div className="card-body d-flex"></div>
             <div className="d-flex gap-2">
                 <button className="btn btn-primary" onClick={handleDivideEqually}>
                     Divide Equally
