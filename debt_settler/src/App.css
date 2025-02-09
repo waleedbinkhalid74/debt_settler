@@ -2,11 +2,17 @@
     background-color: #FAC436 !important;
 }
 
+
+.text-base {
+    font-style: public-sans;
+}
+
 .bg-card {
     background-color: #FCF4E7 !important;
     border: 3px solid #000000 !important;
     box-shadow: 5px 5px 0px #000000 !important;
     display: block;
+    font-style: public-sans;
 }
 
 .bg-cardHeader {
@@ -17,6 +23,7 @@
 
 .bg-inputFields {
     background-color: #FFF !important;
+    font-style: public-sans;
 }
 
 .bg-button {
@@ -24,6 +31,7 @@
     border: 3px solid #000000 !important;
     font-style: public-sans;
     box-shadow: 5px 5px 0px #000000 !important;
+    font-style: public-sans;
 }
 
 .bg-buttonDanger {
@@ -31,4 +39,5 @@
     border: 3px solid #000000 !important;
     font-style: public-sans;
     box-shadow: 5px 5px 0px #000000 !important;
+    font-style: public-sans;
 }

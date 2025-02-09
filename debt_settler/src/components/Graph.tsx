@@ -54,7 +54,7 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
 
     return (
         <div>
-            <div className="border border-info" ref={containerRef} style={{ height: 400 }} />
+            <div className="bg-card" ref={containerRef} style={{ height: 400 }} />
         </div>
     );
 };

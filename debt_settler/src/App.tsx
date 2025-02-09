@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div className="min-vh-100 flex flex-col items-center text-white py-5 bg-base">
-      <h1 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
+      <h1 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg text-base">
         Debt Settler
       </h1>
       <AddUser users={users} setUsers={setUsers} addTransaction={addTransaction} />
@@ -34,12 +34,12 @@ function App() {
 
       <div className="flex flex-row justify-center items-start gap-10 w-full px-5">
         <div className="w-1/2 min-w-[350px]">
-          <h3 className="text-center text-white">Original Transactions</h3>
+          <h3 className="text-center text-white text-base">Original Transactions</h3>
           <Graph users={users} transactions={transactions} immediateRender={true} />
         </div>
 
         <div className="w-1/2 min-w-[350px]">
-          <h3 className="text-center text-white">Simplified Transactions</h3>
+          <h3 className="text-center text-white text-base">Simplified Transactions</h3>
           <Graph users={users} transactions={simplifiedTransactions} immediateRender={false} />
         </div>
       </div>

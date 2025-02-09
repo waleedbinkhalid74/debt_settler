@@ -89,13 +89,15 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
                         <div className="col-sm">
                             <input
                                 type="number"
-                                className="text-black border-2 rounded"
+                                className="text-black rounded bg-inputFields border-0"
                                 placeholder="Amount"
                             />
                         </div>
                     </div>
+                    <div style={{ marginBottom: "4px" }}></div>
                 </div>
-            ))}
+            ))
+            }
             <div className="card-body d-flex"></div>
             <div className="d-flex gap-2">
                 <button className="btn bg-button" onClick={handleDivideEqually}>
@@ -108,7 +110,7 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
                     Delete User
                 </button>
             </div>
-        </div>
+        </div >
     );
 };
 
