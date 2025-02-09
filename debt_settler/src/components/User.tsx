@@ -35,7 +35,15 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             setError("Please select at least one user");
             return;
         }
-        addTransaction(userName, numericAmount / (involvedUsers.length + 1), involvedUsers);  // Pass the transaction up to the parent 
+        // if involved Users involves self then remove self and devide numeric amount by length + 1
+        let targetUsers = [...involvedUsers]; // Create a shallow copy
+        if (targetUsers.includes(userName)) {
+            targetUsers.splice(targetUsers.indexOf(userName), 1);
+            addTransaction(userName, numericAmount / (targetUsers.length + 1), targetUsers);  // Pass the transaction up to the parent 
+        }
+        else {
+            addTransaction(userName, numericAmount / targetUsers.length, targetUsers);  // Pass the transaction up to the parent
+        }
         setAmount("Paid Amount"); // Clear amount after successful transfer
         setError(null); // Clear error when successful
     };
