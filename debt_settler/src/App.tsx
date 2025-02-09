@@ -28,7 +28,7 @@ function App() {
       <h1 className="text-center text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg text-base">
         Debt Settler
       </h1>
-      <AddUser users={users} setUsers={setUsers} addTransaction={addTransaction} />
+      <AddUser users={users} transactions={transactions} setUsers={setUsers} addTransaction={addTransaction} />
 
       <div className="flex justify-center w-full bg-base">
         <Settle transactions={transactions} users={users} onSettle={handleSettle} />

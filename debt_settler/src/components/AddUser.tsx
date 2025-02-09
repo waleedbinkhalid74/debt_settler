@@ -1,13 +1,15 @@
 import { useState } from "react";
 import User from './User'
+import Transaction from "../Types";
 
 interface AddUserProps {
   users: string[];  // Pass users array from the parent
+  transactions: Transaction[];  // Pass transactions array from the parent
   setUsers: (userName: string[]) => void;  // Pass setUsers function from the parent
   addTransaction: (userName: string, amount: number, otherUsers: string[]) => void;  // New prop to handle transaction updates
 }
 
-function AddUser({ users, setUsers, addTransaction }: AddUserProps) {
+function AddUser({ users, transactions, setUsers, addTransaction }: AddUserProps) {
   const [message, setMessage] = useState("");
 
   const handleAdd = () => {
@@ -23,6 +25,10 @@ function AddUser({ users, setUsers, addTransaction }: AddUserProps) {
   };
 
   const handleDelete = (userName: string) => {
+    if (transactions.some(transaction => transaction[0] === userName || transaction[2] === userName)) {
+      alert("User has transactions!");
+      return;
+    }
     setUsers(users.filter(user => user !== userName));  // Remove user by name
   };
 
