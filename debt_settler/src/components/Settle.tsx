@@ -19,7 +19,7 @@ function Settle({ transactions, users, onSettle }: SettleProps) {
                 className="btn btn-primary mb-3"
                 onClick={handleSettle}
             >
-                Settle
+                Simplify
             </button>
 
         </div>

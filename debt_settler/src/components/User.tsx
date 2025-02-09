@@ -11,6 +11,17 @@ interface UserProps {
 const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransaction }) => {
     const [amount, setAmount] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
+    const [involvedUsers, setInvolvedUsers] = useState<string[]>([]);
+
+    const handleCheckboxChange = (item: string) => {
+        setInvolvedUsers((prev) =>
+            prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
+        );
+    };
+
+    const handleSelectAll = () => {
+        setInvolvedUsers(involvedUsers.length === users.length ? [] : users);
+    };
 
     const handleDivideEqually = () => {
         let numericAmount = parseFloat(amount);
@@ -19,8 +30,12 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             setError("Amount must be greater than zero you silly goose!");
             return;
         }
-        let otherUsers = users.filter(user => user !== userName);
-        addTransaction(userName, numericAmount / (otherUsers.length + 1), otherUsers);  // Pass the transaction up to the parent 
+        if (involvedUsers.length === 0) {
+            // no users selected
+            setError("Please select at least one user");
+            return;
+        }
+        addTransaction(userName, numericAmount / (involvedUsers.length + 1), involvedUsers);  // Pass the transaction up to the parent 
         setAmount("Paid Amount"); // Clear amount after successful transfer
         setError(null); // Clear error when successful
     };
@@ -41,6 +56,26 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             />
             {error && <p style={{ color: "red" }}>{error}</p>}
             <div className="card-body d-flex"></div>
+            <label className="btn btn-primary w-25">
+                <input
+                    type="checkbox"
+                    className="btn-check"
+                    checked={involvedUsers.length === users.length}
+                    onChange={handleSelectAll}
+                />
+                Select All
+            </label>
+            {users.map((item) => (
+                <label key={item} className="flex items-center mb-1">
+                    <input
+                        type="checkbox"
+                        checked={involvedUsers.includes(item)}
+                        onChange={() => handleCheckboxChange(item)}
+                        className="mr-2"
+                    />
+                    {item}
+                </label>
+            ))}
             <div className="d-flex gap-2">
                 <button className="btn btn-primary" onClick={handleDivideEqually}>
                     Divide Equally
