@@ -37,7 +37,7 @@ function App() {
         Debt Settler
       </h1>
       <p className="text-center text-lg">Designed by Khadija Rehman and developed By WBK</p>
-      <AddUser users={users} transactions={transactions} setUsers={setUsers} addTransaction={addTransaction} />
+      <AddUser users={users} setUsers={setUsers} />
       <AddTransaction users={users} handleDelete={handleDelete} addTransaction={addTransaction} />
 
       <div className="flex justify-center w-full bg-base">

@@ -1,15 +1,11 @@
 import { useState } from "react";
-import User from './User'
-import Transaction from "../Types";
 
 interface AddUserProps {
   users: string[];  // Pass users array from the parent
-  transactions: Transaction[];  // Pass transactions array from the parent
   setUsers: (userName: string[]) => void;  // Pass setUsers function from the parent
-  addTransaction: (userName: string, amount: number, otherUsers: string) => void;  // New prop to handle transaction updates
 }
 
-function AddUser({ users, transactions, setUsers, addTransaction }: AddUserProps) {
+function AddUser({ users, setUsers }: AddUserProps) {
   const [message, setMessage] = useState("");
 
   const handleAdd = () => {
@@ -44,17 +40,6 @@ function AddUser({ users, transactions, setUsers, addTransaction }: AddUserProps
           </button>
         </div>
       </div>
-
-      {/* <div className="mt-4 d-flex flex-wrap gap-3">
-        {users.map((user, index) => (
-          <User
-            key={index}
-            userName={user}
-            handleDelete={handleDelete}
-            users={users}
-            addTransaction={addTransaction} />
-        ))}
-      </div> */}
     </div>
   );
 }
