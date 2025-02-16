@@ -4,6 +4,7 @@ import AddUser from './components/AddUser'
 import Settle from './components/Settle'
 import Graph from './components/Graph'
 import Transaction from './Types'
+import AddTransaction from "./components/AddTransaction";
 
 function App() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -12,15 +13,22 @@ function App() {
 
   // Function to handle transaction updates from a User component
   const addTransaction = (userName: string, amount: number, otherUsers: string) => {
-    for (let user of otherUsers) {
-      setTransactions((prevTransactions) => [
-        ...prevTransactions,
-        [userName, amount, user],
-      ]);
-    }
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      [userName, amount, otherUsers],
+    ]);
   };
   const handleSettle = (newTransactions: Transaction[]) => {
     setSimplifiedTransactions(newTransactions); // Update the state with the optimized transactions
+  };
+
+
+  const handleDelete = (userName: string) => {
+    if (transactions.some(transaction => transaction[0] === userName || transaction[2] === userName)) {
+      alert("User has transactions!");
+      return;
+    }
+    setUsers(users.filter(user => user !== userName));  // Remove user by name
   };
 
   return (
@@ -30,6 +38,7 @@ function App() {
       </h1>
       <p className="text-center text-lg">Designed by Khadija Rehman and developed By WBK</p>
       <AddUser users={users} transactions={transactions} setUsers={setUsers} addTransaction={addTransaction} />
+      <AddTransaction users={users} handleDelete={handleDelete} addTransaction={addTransaction} />
 
       <div className="flex justify-center w-full bg-base">
         <Settle transactions={transactions} users={users} onSettle={handleSettle} />

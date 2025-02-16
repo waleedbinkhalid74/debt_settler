@@ -35,7 +35,6 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
                 label: user, // Node label is set to the user's name
             }));
         }
-
         const userIndexMap = invovledUsers.reduce((acc, user, index) => {
             acc[user] = index + 1; // Store 1-based index
             return acc;
@@ -59,7 +58,7 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
 
     return (
         <div>
-            <div className="bg-card" ref={containerRef} style={{ height: 400 }} />
+            <div className="bg-card rounded" ref={containerRef} style={{ height: 400 }} />
         </div>
     );
 };

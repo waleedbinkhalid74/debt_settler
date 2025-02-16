@@ -24,6 +24,14 @@
 .bg-inputFields {
     background-color: #FFF !important;
     font-style: public-sans;
+    height: 35px;
+}
+
+.bg-inputFieldsWrapped {
+    background-color: #FFF !important;
+    font-style: public-sans;
+    height: 35px;
+    width: 100%;
 }
 
 .bg-button {

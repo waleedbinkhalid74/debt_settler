@@ -1,18 +1,23 @@
-// UserCard.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 
-interface UserProps {
-    userName: string;
-    handleDelete: (userName: string) => void;  // Pass handleDelete from the parent
+interface AddTransactionProps {
     users: string[];  // Pass users array from the parent
     addTransaction: (userName: string, amount: number, otherUsers: string) => void;  // New prop to handle transaction updates
+    handleDelete: (userName: string) => void;  // Pass handleDelete from the parent
 }
 
-const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransaction }) => {
+
+const AddTransaction: React.FC<AddTransactionProps> = ({ users, handleDelete, addTransaction }) => {
     const [amount, setAmount] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [involvedUsers, setInvolvedUsers] = useState<string[]>([]);
     const [individualAmount, setIndividualAmount] = useState<Record<string, number>>({});
+    const [selectedPayee, setSelectedPayee] = useState<string>("");
+
+    const handleDropdownChange = (payee: string) => {
+        setSelectedPayee(payee);
+        console.log("Selected Payee: ", selectedPayee);
+    };
 
     const handleCheckboxChange = (item: string) => {
         setInvolvedUsers((prev) =>
@@ -43,31 +48,35 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
             alert("Please select at least one user");
             return;
         }
+        // if payee is not in users then raise alert
+        if (!users.includes(selectedPayee)) {
+            alert("Payee not in users list");
+            return;
+        }
 
         // if individual amounts contain anything then their sum should match the total amount
         let targetUsers = [...involvedUsers]; // Create a shallow copy
         let unequalSplit: boolean = Object.keys(individualAmount).length > 0;
         if (unequalSplit) {
-            console.log("amount ", numericAmount);
             if (!isNaN(numericAmount) && totalindividualAmount !== numericAmount) {
                 alert("Amounts don't match!");
                 return;
             }
             for (let [user, amount] of Object.entries(individualAmount)) {
-                addTransaction(userName, amount, user);  // Pass the transaction up to the parent
+                addTransaction(selectedPayee, amount, user);  // Pass the transaction up to the parent
             }
         }
         else {
             // if involved Users involves self then remove self and devide numeric amount by length + 1
-            if (targetUsers.includes(userName)) {
-                targetUsers.splice(targetUsers.indexOf(userName), 1);
+            if (targetUsers.includes(selectedPayee)) {
+                targetUsers.splice(targetUsers.indexOf(selectedPayee), 1);
                 for (let user of targetUsers) {
-                    addTransaction(userName, numericAmount / (targetUsers.length + 1), user);  // Pass the transaction up to the parent
+                    addTransaction(selectedPayee, numericAmount / (targetUsers.length + 1), user);  // Pass the transaction up to the parent
                 }
             }
             else {
                 for (let user of targetUsers) {
-                    addTransaction(userName, numericAmount / targetUsers.length, user);  // Pass the transaction up to the parent
+                    addTransaction(selectedPayee, numericAmount / targetUsers.length, user);  // Pass the transaction up to the parent
                 }
             }
         }
@@ -80,9 +89,25 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
     return (
         <div className="bg-card container card w-25 p-4 mt-2 text-white">
             <div className="bg-cardHeader card-header">
-                <h5 className="card-title text-black text-center">{userName}</h5>
+                <h5 className="card-title text-black text-center">Add Transaction</h5>
             </div>
             <div className="card-body d-flex"></div>
+            <div className="row">
+                <div className="text-black">
+                    <select
+                        value={selectedPayee}  // Bind to state
+                        onChange={(e) => handleDropdownChange(e.target.value)}
+                        className="w-40 p-2 rounded bg-inputFields border-0"
+                    >
+                        <option value="" disabled>Select Payee</option>  {/* Placeholder option */}
+                        {users.map((user) => (
+                            <option key={user} value={user}>
+                                {user}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
             <input
                 type="number"
                 className="form-control text-black border-0"
@@ -110,14 +135,14 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
                                 type="checkbox"
                                 checked={involvedUsers.includes(item)}
                                 onChange={() => handleCheckboxChange(item)}
-                                className="w-5 h-5"
+                                className="w-5 h-15"
                             />
-                            <span className="w-32 gap-x-4">{item}</span>
+                            <span className="w-32 gap-x-2">{item}</span>
                         </div>
                         <div className="col-sm">
                             <input
                                 type="number"
-                                className="text-black rounded bg-inputFields border-0"
+                                className="text-black rounded bg-inputFieldsWrapped border-0"
                                 placeholder="Amount"
                                 disabled={!involvedUsers.includes(item)}
                                 onChange={(e) => {
@@ -130,6 +155,14 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
                                 value={individualAmount[item] || ""}
                             />
                         </div>
+                        <div className="col-sm">
+                            <button
+                                className="btn bg-buttonDanger"  // Changed color to indicate deletion
+                                onClick={() => handleDelete(item)}  // Call the passed delete function
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                     <div style={{ marginBottom: "4px" }}></div>
                 </div>
@@ -140,15 +173,9 @@ const User: React.FC<UserProps> = ({ userName, handleDelete, users, addTransacti
                 <button className="btn bg-button" onClick={handleSplit}>
                     Split
                 </button>
-                <button
-                    className="btn bg-buttonDanger"  // Changed color to indicate deletion
-                    onClick={() => handleDelete(userName)}  // Call the passed delete function
-                >
-                    Delete
-                </button>
             </div>
         </div >
     );
 };
 
-export default User;
+export default AddTransaction;

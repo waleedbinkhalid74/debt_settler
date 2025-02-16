@@ -24,13 +24,6 @@ function AddUser({ users, transactions, setUsers, addTransaction }: AddUserProps
     }
   };
 
-  const handleDelete = (userName: string) => {
-    if (transactions.some(transaction => transaction[0] === userName || transaction[2] === userName)) {
-      alert("User has transactions!");
-      return;
-    }
-    setUsers(users.filter(user => user !== userName));  // Remove user by name
-  };
 
   return (
     <div>
@@ -52,7 +45,7 @@ function AddUser({ users, transactions, setUsers, addTransaction }: AddUserProps
         </div>
       </div>
 
-      <div className="mt-4 d-flex flex-wrap gap-3">
+      {/* <div className="mt-4 d-flex flex-wrap gap-3">
         {users.map((user, index) => (
           <User
             key={index}
@@ -61,7 +54,7 @@ function AddUser({ users, transactions, setUsers, addTransaction }: AddUserProps
             users={users}
             addTransaction={addTransaction} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
