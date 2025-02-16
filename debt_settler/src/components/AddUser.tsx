@@ -6,7 +6,7 @@ interface AddUserProps {
   users: string[];  // Pass users array from the parent
   transactions: Transaction[];  // Pass transactions array from the parent
   setUsers: (userName: string[]) => void;  // Pass setUsers function from the parent
-  addTransaction: (userName: string, amount: number, otherUsers: string[]) => void;  // New prop to handle transaction updates
+  addTransaction: (userName: string, amount: number, otherUsers: string) => void;  // New prop to handle transaction updates
 }
 
 function AddUser({ users, transactions, setUsers, addTransaction }: AddUserProps) {

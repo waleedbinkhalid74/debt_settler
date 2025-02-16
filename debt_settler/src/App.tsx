@@ -11,7 +11,7 @@ function App() {
   const [simplifiedTransactions, setSimplifiedTransactions] = useState<Transaction[]>([]);
 
   // Function to handle transaction updates from a User component
-  const addTransaction = (userName: string, amount: number, otherUsers: string[]) => {
+  const addTransaction = (userName: string, amount: number, otherUsers: string) => {
     for (let user of otherUsers) {
       setTransactions((prevTransactions) => [
         ...prevTransactions,
