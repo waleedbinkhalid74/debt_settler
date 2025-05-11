@@ -87,93 +87,100 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ users, handleDelete, ad
     };
 
     return (
-        <div className="bg-card container card w-25 p-4 mt-2 text-white">
-            <div className="bg-cardHeader card-header">
-                <h5 className="card-title text-black text-center">Add Transaction</h5>
-            </div>
-            <div className="card-body d-flex"></div>
-            <div className="row">
-                <div className="text-black">
-                    <select
-                        value={selectedPayee}  // Bind to state
-                        onChange={(e) => handleDropdownChange(e.target.value)}
-                        className="w-40 p-2 rounded bg-inputFields border-0"
-                    >
-                        <option value="" disabled>Select Payee</option>  {/* Placeholder option */}
-                        {users.map((user) => (
-                            <option key={user} value={user}>
-                                {user}
-                            </option>
-                        ))}
-                    </select>
+        <div className="p-3">
+
+            <div className="bg-card container card p-4 mt-2 text-white">
+                <div className="bg-cardHeader card-header">
+                    <h5 className="card-title text-black text-center">Add Transaction</h5>
                 </div>
-            </div>
-            <input
-                type="number"
-                className="form-control text-black border-0"
-                placeholder="Paid Amount"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-            />
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <div className="card-body d-flex"></div>
-            <label className="btn bg-button w-30">
-                <input
-                    type="checkbox"
-                    className="btn-check"
-                    checked={involvedUsers.length === users.length}
-                    onChange={handleSelectAll}
-                />
-                Select All
-            </label>
-            <div className="card-body d-flex"></div>
-            {users.map((item) => (
-                <div key={item} className="container">
-                    <div className="row">
-                        <div className="col-sm text-black">
-                            <input
-                                type="checkbox"
-                                checked={involvedUsers.includes(item)}
-                                onChange={() => handleCheckboxChange(item)}
-                                className="w-5 h-15"
-                            />
-                            <span className="w-32 gap-x-2">{item}</span>
-                        </div>
-                        <div className="col-sm">
-                            <input
-                                type="number"
-                                className="text-black rounded bg-inputFieldsWrapped border-0"
-                                placeholder="Amount"
-                                disabled={!involvedUsers.includes(item)}
-                                onChange={(e) => {
-                                    const value = parseFloat(e.target.value); // Make sure the value is a number
-                                    setIndividualAmount((prevState) => ({
-                                        ...prevState,
-                                        [item]: value, // Update the amount for this specific item
-                                    }));
-                                }}
-                                value={individualAmount[item] || ""}
-                            />
-                        </div>
-                        <div className="col-sm">
-                            <button
-                                className="btn bg-buttonDanger"  // Changed color to indicate deletion
-                                onClick={() => handleDelete(item)}  // Call the passed delete function
+                <div className="card-body d-flex"></div>
+                <div className="row">
+                    <div className="col">
+                        <div className="text-black">
+                            <select
+                                value={selectedPayee}  // Bind to state
+                                onChange={(e) => handleDropdownChange(e.target.value)}
+                                className="w-40 p-2 rounded bg-inputFields border-0"
                             >
-                                Delete
-                            </button>
+                                <option value="" disabled>Select Payee</option>  {/* Placeholder option */}
+                                {users.map((user) => (
+                                    <option key={user} value={user}>
+                                        {user}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     </div>
-                    <div style={{ marginBottom: "4px" }}></div>
+                    <div className="col">
+                        <input
+                            type="number"
+                            className="form-control text-black border-0"
+                            placeholder="Paid Amount"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                        />
+                        {error && <p style={{ color: "red" }}>{error}</p>}
+                    </div>
                 </div>
-            ))
-            }
-            <div className="card-body d-flex"></div>
-            <div className="d-flex gap-2">
-                <button className="btn bg-button" onClick={handleSplit}>
-                    Split
-                </button>
-            </div>
+                <div className="card-body d-flex"></div>
+                <label className="btn bg-button">
+                    <input
+                        type="checkbox"
+                        className="btn-check"
+                        checked={involvedUsers.length === users.length}
+                        onChange={handleSelectAll}
+                    />
+                    Select All
+                </label>
+                <div className="card-body d-flex"></div>
+                {users.map((item) => (
+                    <div key={item} className="container">
+                        <div className="row">
+                            <div className="col text-black">
+                                <input
+                                    type="checkbox"
+                                    checked={involvedUsers.includes(item)}
+                                    onChange={() => handleCheckboxChange(item)}
+                                    className="w-5 h-15"
+                                />
+                                <span className="w-32 gap-x-2">{item}</span>
+                            </div>
+                            <div className="col">
+                                <input
+                                    type="number"
+                                    className="text-black rounded bg-inputFieldsWrapped border-0"
+                                    placeholder="Amount"
+                                    disabled={!involvedUsers.includes(item)}
+                                    onChange={(e) => {
+                                        const value = parseFloat(e.target.value); // Make sure the value is a number
+                                        setIndividualAmount((prevState) => ({
+                                            ...prevState,
+                                            [item]: value, // Update the amount for this specific item
+                                        }));
+                                    }}
+                                    value={individualAmount[item] || ""}
+                                />
+                            </div>
+                            <div className="col">
+                                <button
+                                    className="btn bg-buttonDanger" // Changed color to indicate deletion
+                                    onClick={() => handleDelete(item)} // Call the passed delete function
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div style={{ marginBottom: "4px" }}></div>
+                    </div>
+                ))
+                }
+                <div className="card-body d-flex"></div>
+                <div className="d-flex gap-2">
+                    <button className="btn bg-button" onClick={handleSplit}>
+                        Split
+                    </button>
+                </div>
+            </div >
         </div >
     );
 };

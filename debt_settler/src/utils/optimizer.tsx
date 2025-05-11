@@ -1,5 +1,9 @@
 import Transaction from "../Types";
 
+function areAlmostEqual(a: number, b: number, epsilon = 1e-4): boolean {
+    return Math.abs(a - b) < epsilon;
+}
+
 function assertRecordsAreEqual(record1: Record<string, number>, record2: Record<string, number>): void {
     const keys1 = Object.keys(record1);
 
@@ -8,7 +12,7 @@ function assertRecordsAreEqual(record1: Record<string, number>, record2: Record<
         if (!(key in record2)) {
             continue;
         }
-        if (record1[key] !== record2[key]) {
+        if (!areAlmostEqual(record1[key], record2[key])) {
             throw new Error(`Value for key "${key}" does not match: ${record1[key]} !== ${record2[key]}`);
         }
     }

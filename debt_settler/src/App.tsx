@@ -40,11 +40,11 @@ function App() {
       <AddUser users={users} setUsers={setUsers} />
       <AddTransaction users={users} handleDelete={handleDelete} addTransaction={addTransaction} />
 
-      <div className="flex justify-center w-full bg-base">
+      <div className="flex justify-center bg-base">
         <Settle transactions={transactions} users={users} onSettle={handleSettle} />
       </div>
 
-      <div className="flex flex-row justify-center items-start gap-10 w-full px-5">
+      <div className="flex flex-row justify-center items-start gap-10 px-5">
         <div className="w-1/2 min-w-[350px]">
           <h3 className="text-center text-white text-base">Original Transactions</h3>
           <Graph users={users} transactions={transactions} immediateRender={true} />

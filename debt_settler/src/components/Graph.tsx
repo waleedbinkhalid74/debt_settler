@@ -58,7 +58,7 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
 
     return (
         <div>
-            <div className="bg-card rounded" ref={containerRef} style={{ height: 400 }} />
+            <div className="bg-card w-100 rounded" ref={containerRef} style={{ height: 400 }} />
         </div>
     );
 };
