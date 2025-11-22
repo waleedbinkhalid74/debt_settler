@@ -33,6 +33,22 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
             nodes = invovledUsers.map((user, index) => ({
                 id: index + 1,
                 label: user, // Node label is set to the user's name
+                borderWidth: 2,
+                color: {
+                    border: '#000000',
+                    background: '#fac436',
+                    highlight: {
+                        background: '#f8be2cff',
+                        border: '#000000',
+                        borderWidth: 1
+                    }
+                },
+                shadow: {
+                    enabled: true,
+                    color: '#000000',
+                    size: 0
+                },
+                labelHighlightBold: false
             }));
         }
         const userIndexMap = invovledUsers.reduce((acc, user, index) => {
@@ -48,6 +64,9 @@ const Graph: React.FC<GraphProps> = ({ users, transactions, immediateRender }) =
                 to,
                 label: amount.toFixed(2).toString(),
                 arrows: { from: true },
+                color: {
+                    color: '#000000'
+                }
             };
         });
 
