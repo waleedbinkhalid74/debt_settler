@@ -13,6 +13,7 @@
         border: 3px solid #000000 !important;
         box-shadow: 5px 5px 0px #000000 !important;
         display: inline-block;
+        width: 25% !important;
         font-style: public-sans;
     }
 }
